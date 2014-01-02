@@ -1,0 +1,8 @@
+<script>
+  var oauth_url = 'https://www.facebook.com/dialog/oauth/';
+  oauth_url += '?client_id=1435770329973305';
+  oauth_url += '&redirect_uri=' + encodeURIComponent('<%= settings.redirect_uri %>');
+  oauth_url += '&scope=user_likes, user_photos'
+
+  window.top.location = oauth_url;
+</script>
