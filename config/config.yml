@@ -1,2 +1,5 @@
-id:1435770329973305
-secret:027a9b991a6d50d846ac14256e738b65
+:id: 1435770329973305
+:secret: 027a9b991a6d50d846ac14256e738b65
+:scopes:
+  - user_likes
+  - user_photos
