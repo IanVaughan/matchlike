@@ -3,3 +3,4 @@
 :scopes:
   - user_likes
   - user_photos
+:callback_url:

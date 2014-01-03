@@ -2,11 +2,11 @@ class FacebookConnection
   attr_accessor :app_id, :app_secret, :scopes
 
   def initialize
-    config ||= YAML.load_file('./config/config.yml')
+    config ||= YAML.load_file('./config/facebook.yml')
     @app_id = config[:id]
     @app_secret = config[:secret]
     @scopes = config[:scopes].join(',')
-    @callback_url = nil
+    @callback_url = config[:callback_url]
   end
 
   def auth(oauth_access_token)
