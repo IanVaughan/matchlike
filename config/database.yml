@@ -1,0 +1,9 @@
+:development:
+  :adapter: postgres
+  :user: postgres
+  :password:
+  :host: 127.0.0.1
+  :port: 5432
+  :database_name: match_like
+  :log: log/db.log
+  :max_connections: 10
