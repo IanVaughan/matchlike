@@ -6,9 +6,6 @@ require 'pry'
 require './lib/facebook_connection'
 require './lib/database'
 
-@@fb = FacebookConnection.new
-@@db = Database.new
-
 class Server < Sinatra::Base
 
   use Rack::Session::Pool
@@ -23,10 +20,13 @@ class Server < Sinatra::Base
 
   configure do
     set :redirect_uri, nil
+
+    FACEBOOK = FacebookConnection.new
+    DATABASE = Database.new
   end
 
   use OmniAuth::Builder do
-    provider :facebook, @@fb.app_id, @@fb.app_secret, { :scope => @@fb.scopes }
+    provider :facebook, FACEBOOK.app_id, FACEBOOK.app_secret, { :scope => FACEBOOK.scopes }
   end
 
   get '/' do
@@ -44,12 +44,12 @@ class Server < Sinatra::Base
     session[:flash] = 'You have connected to Facebook'
     session[:name] = fb_auth['info']['first_name']
 
-    @@fb.auth(fb_auth['credentials']['token'])
-    @@fb.get_likes.each do |like|
-      @@db.add fb_auth['uid'], like['id'], like['category'], like['name']
+    FACEBOOK.auth(fb_auth['credentials']['token'])
+    FACEBOOK.get_likes.each do |like|
+      DATABASE.add fb_auth['uid'], like['id'], like['category'], like['name']
     end
 
-    session[:likes] = @@db.get_all_for(fb_auth['uid'])
+    session[:likes] = DATABASE.get_all_for(fb_auth['uid'])
     redirect '/'
   end
 
