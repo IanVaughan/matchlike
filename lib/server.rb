@@ -1,6 +1,5 @@
 require 'koala'
 require 'sinatra'
-require 'sinatra/cookies'
 require 'omniauth-facebook'
 require './helpers/get_post'
 require 'pry'
@@ -11,7 +10,6 @@ require './lib/database'
 @@db = Database.new
 
 class Server < Sinatra::Base
-  helpers Sinatra::Cookies
 
   use Rack::Session::Pool
   set :protection, :except => :frame_options
