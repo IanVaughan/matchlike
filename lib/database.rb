@@ -8,11 +8,10 @@ class Database
   end
 
   def connect
-    config = YAML.load_file('./config/database.yml')
-    @db = Sequel.connect(
-      "postgres://#{config[:user]}:#{config[:password]}@#{config[:host]}:#{config[:port]}/#{config[:database_name]}",
-      :max_connections => config[:max_connections],
-      :logger => Logger.new(config[:log])
+    config = YAML.load_file('./config/database.yml')[:development]
+    @db = Sequel.connect(config,
+      :logger => Logger.new(config[:log]),
+      :max_connections => config[:max_connections]
     )
   end
 

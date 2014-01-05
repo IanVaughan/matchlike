@@ -32,6 +32,7 @@ GEM
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
+    pg (0.17.1)
     pry (0.9.12.4)
       coderay (~> 1.0)
       method_source (~> 0.8)
@@ -70,6 +71,7 @@ PLATFORMS
 DEPENDENCIES
   koala
   omniauth-facebook
+  pg
   pry
   rspec
   sequel
