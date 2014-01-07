@@ -1,4 +1,6 @@
 require 'sequel'
+require 'logger'
+require 'yaml'
 
 class Database
 
@@ -34,7 +36,16 @@ class Database
     dataset.insert(user_id: user_id, id: item_id, category: category, name: name)
   end
 
-  def get_all_for user_id
-    dataset.filter(user_id: user_id)
+  def get user_id
+    dataset.filter(user_id: user_id).all
+  end
+
+  def get_all_users
+    result = dataset.select_group(:user_id).all
+    result.map { |u| u[:user_id] }
+  end
+
+  def delete_all_for user_id
+    dataset.filter(user_id: user_id).delete
   end
 end

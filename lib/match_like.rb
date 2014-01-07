@@ -2,13 +2,11 @@ class MatchLike
 
   def initialize
     fb = FacebookConnection.new
-    likes = fb.get_likes
+    likes = fb.likes
 
     db = Database.new
 
-    likes.each do |like|
-      db.add user, like
-    end
+    likes.each { |like| db.add(user, like) }
   end
 
 end

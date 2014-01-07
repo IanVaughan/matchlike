@@ -45,11 +45,12 @@ class Server < Sinatra::Base
     session[:name] = fb_auth['info']['first_name']
 
     FACEBOOK.auth(fb_auth['credentials']['token'])
-    FACEBOOK.get_likes.each do |like|
+    FACEBOOK.likes.each do |like|
       DATABASE.add fb_auth['uid'], like['id'], like['category'], like['name']
     end
 
-    session[:likes] = DATABASE.get_all_for(fb_auth['uid'])
+    session[:likes] = DATABASE.get(fb_auth['uid'])
+    session[:graph] = FACEBOOK
     redirect '/'
   end
 

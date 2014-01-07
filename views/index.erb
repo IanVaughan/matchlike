@@ -9,8 +9,11 @@
     <%= 'Hello, ' + session[:name] %>
   </h3>
 
-  <% session[:likes].each do |like| %>
-    <%= "#{like[:category]}, #{like[:name]} (#{like[:id]})" %></br>
+  <% session[:likes].each_with_index do |like, i| %>
+    <%= "#{like[:category]}, #{like[:name]}" %>
+    <img src=<%= session[:graph].like_link(like[:id]) %> height="42" width="42">
+    <% break if i > 10 %>
+    </br>
   <% end %>
 
   <hr />
