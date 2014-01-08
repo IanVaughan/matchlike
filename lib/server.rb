@@ -30,10 +30,10 @@ class Server < Sinatra::Base
   end
 
   get '/' do
-    if !session[:logged_in]
-      session[:flash] = 'Please connect to Facebook to use this app'
-    else
+    if session[:logged_in]
       session[:flash] = ''
+    else
+      session[:flash] = 'Please connect to Facebook to use this app'
     end
     erb :index
   end
