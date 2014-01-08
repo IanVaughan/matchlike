@@ -1,4 +1,4 @@
-class FacebookConnection
+class Facebook
   attr_accessor :app_id, :app_secret, :scopes
 
   def initialize

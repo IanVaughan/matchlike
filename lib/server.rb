@@ -3,7 +3,7 @@ require 'sinatra'
 require 'omniauth-facebook'
 require './helpers/get_post'
 require 'pry'
-require './lib/facebook_connection'
+require './lib/facebook'
 require './lib/database'
 
 class Server < Sinatra::Base
@@ -21,7 +21,7 @@ class Server < Sinatra::Base
   configure do
     set :redirect_uri, nil
 
-    FACEBOOK = FacebookConnection.new
+    FACEBOOK = Facebook.new
     DATABASE = Database.new
   end
 

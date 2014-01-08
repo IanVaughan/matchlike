@@ -1,7 +1,7 @@
 class MatchLike
 
   def initialize
-    fb = FacebookConnection.new
+    fb = Facebook.new
     likes = fb.likes
 
     db = Database.new
