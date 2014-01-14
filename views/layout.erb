@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>MatchLike</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="/styles.css" />
+    <meta name="viewport" content="initial-scale=1.0, width=device-width">
+    <meta charset="utf-8">
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/">MatchLike</a>
+            <ul class="nav">
+              <li><a href="/matches">Matches</a></li>
+              <li><a href="/likes">Likes</a></li>
+              <li><a href="/about">About</a></li>
+            </ul>
+        </div>
+      </div>
+    </div>
+
+    <%= session[:flash] %> <br />
+    <% if !session[:logged_in] %>
+      <a href='login'><img src='images/fb_login_button.png'></a>
+    <% else %>
+      <a href='logout'><img src='images/fb_logout_button.png'></a>
+      <br/>
+
+      <div class="container">
+        <%= yield %>
+      </div>
+
+
+      <p><span class='like_site'>Do you like this site?</span></p>
+      <p><iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Ffaceboku.heroku.com%2F&amp;layout=standard&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowTransparency="true"></iframe></p>
+
+    <% end %>
+
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>

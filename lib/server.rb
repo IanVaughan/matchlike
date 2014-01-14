@@ -1,10 +1,8 @@
 require 'koala'
 require 'sinatra'
 require 'omniauth-facebook'
-require './helpers/get_post'
 require 'pry'
-require './lib/facebook'
-require './lib/database'
+require './lib/match_like'
 
 class Server < Sinatra::Base
 
@@ -21,12 +19,11 @@ class Server < Sinatra::Base
   configure do
     set :redirect_uri, nil
 
-    FACEBOOK = Facebook.new
-    DATABASE = Database.new
+    ML = MatchLike.new
   end
 
   use OmniAuth::Builder do
-    provider :facebook, FACEBOOK.app_id, FACEBOOK.app_secret, { :scope => FACEBOOK.scopes }
+    provider :facebook, ML.facebook.app_id, ML.facebook.app_secret, { :scope => ML.facebook.scopes }
   end
 
   get '/' do
@@ -42,16 +39,20 @@ class Server < Sinatra::Base
     fb_auth = request.env['omniauth.auth']
     session[:logged_in] = true
     session[:flash] = 'You have connected to Facebook'
-    session[:name] = fb_auth['info']['first_name']
 
-    FACEBOOK.auth(fb_auth['credentials']['token'])
-    FACEBOOK.likes.each do |like|
-      DATABASE.add fb_auth['uid'], like['id'], like['category'], like['name']
-    end
+    session[:user] = MatchLike.new
+    session[:user].auth_user(fb_auth['uid'], fb_auth['credentials']['token'])
 
-    session[:likes] = DATABASE.get(fb_auth['uid'])
-    session[:graph] = FACEBOOK
+    session[:user].save_likes
     redirect '/'
+  end
+
+  # get '/processing' do
+  #   erb :processing
+  # end
+
+  get '/likes' do
+    erb :likes
   end
 
   get '/auth/failure' do

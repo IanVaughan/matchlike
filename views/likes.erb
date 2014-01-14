@@ -1,0 +1,6 @@
+<% session[:user].get_likes.each_with_index do |like, i| %>
+  <img src=<%= session[:user].facebook.like_link(like[:id]) %> height="42" width="42">
+  <%= "#{like[:category]}, #{like[:name]}" %>
+  <% break if i > 30 %>
+  </br>
+<% end %>
