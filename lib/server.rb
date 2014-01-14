@@ -1,7 +1,6 @@
 require 'koala'
 require 'sinatra'
 require 'omniauth-facebook'
-require 'pry'
 require './lib/match_like'
 
 class Server < Sinatra::Base
