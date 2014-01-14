@@ -10,7 +10,7 @@ class Database
   end
 
   def connect
-    config = YAML.load_file('./config/database.yml')[:development]
+    config = YAML.load_file('./config/database.yml')[:heroku]
     @db = Sequel.connect(config,
       :logger => Logger.new(config[:log]),
       :max_connections => config[:max_connections]

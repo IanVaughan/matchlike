@@ -7,3 +7,12 @@
   :database: match_like
   :log: log/db.log
   :max_connections: 10
+:heroku:
+  :adapter: postgresql
+  :user: lundjpuyuvxryr
+  :password: VRtyEPtkEcBfPgEwK_eEVp3RxO
+  :host: ec2-184-73-194-196.compute-1.amazonaws.com
+  :port: 5432
+  :database: d8f8g52pnvs90r
+  :pool: 5
+  :encoding: unicode
