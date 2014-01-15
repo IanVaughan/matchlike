@@ -32,17 +32,21 @@ class Database
     @dataset ||= @db[:likes]
   end
 
-  def add user_id, item_id, category, name
-    dataset.insert(user_id: user_id, like_id: item_id, category: category, name: name)
+  def add user_id, like_id, category, name
+    dataset.insert(user_id: user_id, like_id: like_id, category: category, name: name)
   end
 
   def get user_id
     dataset.filter(user_id: user_id).all
   end
 
-  def get_all_users
+  def get_all_user_ids
     result = dataset.select_group(:user_id).all
     result.map { |u| u[:user_id] }
+  end
+
+  def get_all_users
+    dataset.all
   end
 
   def delete_all_for user_id

@@ -26,6 +26,7 @@
     <%= session[:flash] %> <br />
     <% if !session[:logged_in] %>
       <a href='login'><img src='images/fb_login_button.png'></a>
+      <a href='/fake_login'>fake user login</a>
     <% else %>
       <a href='logout'><img src='images/fb_logout_button.png'></a>
       <br/>
@@ -39,7 +40,6 @@
       <p><iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Ffaceboku.heroku.com%2F&amp;layout=standard&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:80px;" allowTransparency="true"></iframe></p>
 
     <% end %>
-
 
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>

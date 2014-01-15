@@ -1,17 +1,19 @@
 require './lib/facebook'
 require './lib/database'
+require './lib/matcher'
 
 class MatchLike
-  attr_accessor :facebook, :database
+  attr_accessor :facebook, :database, :matcher
 
   def initialize
     @facebook = Facebook.new
     @database = Database.new
+    @matcher = Matcher.new
   end
 
   def auth_user(id, token)
     facebook.id = id
-    facebook.auth(token)
+    facebook.auth(token) unless token.nil?
   end
 
   def save_likes
@@ -22,5 +24,9 @@ class MatchLike
 
   def get_likes
     database.get(facebook.user_id)
+  end
+
+  def get_matches
+    matcher.show database.get_all_users
   end
 end

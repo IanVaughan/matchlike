@@ -51,6 +51,7 @@ class Server < Sinatra::Base
   # end
 
   get '/likes' do
+    redirect '/' unless session[:logged_in]
     erb :likes
   end
 
@@ -66,6 +67,26 @@ class Server < Sinatra::Base
     else
       redirect '/auth/facebook'
     end
+  end
+
+  get '/fake_login' do
+    session[:logged_in] = true
+    session[:flash] = 'You have connected to Facebook'
+    session[:user] = MatchLike.new
+    facebook_user_id = rand(1..100).to_s
+
+    session[:user].auth_user facebook_user_id, nil
+
+    likes = 10.times.collect { rand(1..100).to_s }
+    likes.each do |like_id|
+      session[:user].database.add(
+        facebook_user_id,
+        like_id,
+        "#{facebook_user_id}_#{like_id}_fake_category",
+        "#{facebook_user_id}_#{like_id}_fake_name")
+    end
+
+    redirect '/'
   end
 
   get '/logout' do
@@ -90,4 +111,14 @@ class Server < Sinatra::Base
     redirect url
   end
 
+  get '/env' do
+    content_type 'text/plain'
+    ENV.inspect
+  end
+
+  get '/matches' do
+    redirect '/' unless session[:logged_in]
+    @matches = session[:user].get_matches
+    erb :matches
+  end
 end
