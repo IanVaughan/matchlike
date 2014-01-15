@@ -22,7 +22,7 @@ class Database
     @db.create_table :likes do
       primary_key :id
       String :user_id
-      String :id
+      String :like_id
       String :category
       String :name
     end
@@ -33,7 +33,7 @@ class Database
   end
 
   def add user_id, item_id, category, name
-    dataset.insert(user_id: user_id, id: item_id, category: category, name: name)
+    dataset.insert(user_id: user_id, like_id: item_id, category: category, name: name)
   end
 
   def get user_id

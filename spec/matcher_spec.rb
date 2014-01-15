@@ -3,27 +3,27 @@ require './lib/matcher'
 
 describe Matcher do
   let(:user) {
-    [{:user_id=>"1", :id=>"1"},
-     {:user_id=>"1", :id=>"2"},
-     {:user_id=>"1", :id=>"3"},
-     {:user_id=>"1", :id=>"4"},
-     {:user_id=>"1", :id=>"5"}]
+    [{:user_id=>"1", :like_id=>"1"},
+     {:user_id=>"1", :like_id=>"2"},
+     {:user_id=>"1", :like_id=>"3"},
+     {:user_id=>"1", :like_id=>"4"},
+     {:user_id=>"1", :like_id=>"5"}]
   }
 
   let(:user2) {
-    [{:user_id=>"2", :id=>"1"}]
+    [{:user_id=>"2", :like_id=>"1"}]
   }
   let(:user3) {
-    [{:user_id=>"3", :id=>"6"}]
+    [{:user_id=>"3", :like_id=>"6"}]
   }
   let(:user4) {
-    [{:user_id=>"4", :id=>"1"},
-     {:user_id=>"4", :id=>"2"}]
+    [{:user_id=>"4", :like_id=>"1"},
+     {:user_id=>"4", :like_id=>"2"}]
   }
   let(:user5) {
-    [{:user_id=>"4", :id=>"1"},
-     {:user_id=>"4", :id=>"3"},
-     {:user_id=>"4", :id=>"6"}]
+    [{:user_id=>"4", :like_id=>"1"},
+     {:user_id=>"4", :like_id=>"3"},
+     {:user_id=>"4", :like_id=>"6"}]
   }
 
   subject { Matcher.new }
@@ -40,10 +40,10 @@ describe Matcher do
 
     it 'returns a ordered list of highest matched users first' do
       result = [
-        [{:user_id=>"4", :id=>"1"},
-         {:user_id=>"4", :id=>"3"},
-         {:user_id=>"4", :id=>"6"}],
-        [{:user_id=>"3", :id=>"6"}]]
+        [{:user_id=>"4", :like_id=>"1"},
+         {:user_id=>"4", :like_id=>"3"},
+         {:user_id=>"4", :like_id=>"6"}],
+        [{:user_id=>"3", :like_id=>"6"}]]
       expect(subject.sort(users)).to eq result
     end
   end

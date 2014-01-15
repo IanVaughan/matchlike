@@ -4,9 +4,9 @@ class Matcher
   end
 
   def match(user_a, user_b)
-    to_match = user_b.map {|k|k[:id]}
-    matching = user_a.keep_if {|v| to_match.include? v[:id] }
-    matching.map {|k|k[:id]}
+    to_match = user_b.map { |k| k[:like_id] }
+    matching = user_a.keep_if {|v| to_match.include? v[:like_id] }
+    matching.map { |k| k[:like_id] }
   end
 
   def sort(users)
@@ -20,7 +20,7 @@ class Matcher
     sort(users).each do |user|
       result[user.first[:user_id]] ||= []
       user.each do |u|
-        result[u[:user_id]] << u[:id]
+        result[u[:user_id]] << u[:like_id]
       end
     end
     result
