@@ -2,6 +2,8 @@ require 'spec_helper'
 require './lib/matcher'
 
 describe Matcher do
+  subject { Matcher.new }
+
   let(:user) {
     [{:user_id=>"1", :like_id=>"1"},
      {:user_id=>"1", :like_id=>"2"},
@@ -25,8 +27,6 @@ describe Matcher do
      {:user_id=>"4", :like_id=>"3"},
      {:user_id=>"4", :like_id=>"6"}]
   }
-
-  subject { Matcher.new }
 
   describe '#match' do
     specify { expect(subject.match(user, user2)).to eq ['1'] }
