@@ -29,6 +29,7 @@
       <a href='/fake_login'>fake user login</a>
     <% else %>
       <a href='logout'><img src='images/fb_logout_button.png'></a>
+      <%= session[:user].facebook.user_name %>
       <br/>
 
       <div class="container">

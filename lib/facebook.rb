@@ -1,5 +1,5 @@
 class Facebook
-  attr_accessor :app_id, :app_secret, :scopes, :user_id
+  attr_accessor :app_id, :app_secret, :scopes, :user_id, :user_name
 
   def initialize
     config ||= YAML.load_file('./config/facebook.yml')

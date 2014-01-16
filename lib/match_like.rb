@@ -11,8 +11,9 @@ class MatchLike
     @matcher = Matcher.new
   end
 
-  def auth_user(id, token)
-    facebook.id = id
+  def auth_user(user_id, user_name, token)
+    facebook.user_id = user_id
+    facebook.user_name = user_name
     facebook.auth(token) unless token.nil?
   end
 

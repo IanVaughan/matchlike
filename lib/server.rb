@@ -40,7 +40,10 @@ class Server < Sinatra::Base
     session[:flash] = 'You have connected to Facebook'
 
     session[:user] = MatchLike.new
-    session[:user].auth_user(fb_auth['uid'], fb_auth['credentials']['token'])
+    session[:user].auth_user(
+      fb_auth['uid'],
+      fb_auth['info']['first_name'],
+      fb_auth['credentials']['token'])
 
     session[:user].save_likes
     redirect '/'
@@ -75,7 +78,11 @@ class Server < Sinatra::Base
     session[:user] = MatchLike.new
     facebook_user_id = rand(1..100).to_s
 
-    session[:user].auth_user facebook_user_id, nil
+    session[:user].auth_user(
+      facebook_user_id,
+      "fakeuser_#{facebook_user_id}",
+      nil)
+
 
     likes = 10.times.collect { rand(1..100).to_s }
     likes.each do |like_id|
