@@ -1,1 +1,11 @@
-matches :
+matches :-
+<ul>
+<% @matches.each do |m| %>
+  <li><%= m.first %></li>
+  <ul>
+    <% m.last.each do |l| %>
+      <li><%= l %></li>
+    <% end %>
+  </ul>
+<% end %>
+</ul>
