@@ -22,7 +22,11 @@ class Server < Sinatra::Base
   end
 
   use OmniAuth::Builder do
-    provider :facebook, ML.facebook.app_id, ML.facebook.app_secret, { :scope => ML.facebook.scopes }
+    provider(
+      :facebook,
+      ML.facebook.app_id,
+      ML.facebook.app_secret,
+      { :scope => ML.facebook.scopes })
   end
 
   get '/' do
@@ -45,13 +49,9 @@ class Server < Sinatra::Base
       fb_auth['info']['first_name'],
       fb_auth['credentials']['token'])
 
-    session[:user].save_likes
+    session[:user].save_likes # make background job
     redirect '/'
   end
-
-  # get '/processing' do
-  #   erb :processing
-  # end
 
   get '/likes' do
     redirect '/' unless session[:logged_in]
@@ -74,7 +74,6 @@ class Server < Sinatra::Base
 
   get '/fake_login' do
     session[:logged_in] = true
-    session[:flash] = 'You have connected to Facebook'
     session[:user] = MatchLike.new
     facebook_user_id = rand(1..100).to_s
 
@@ -83,6 +82,7 @@ class Server < Sinatra::Base
       "fakeuser_#{facebook_user_id}",
       nil)
 
+    # session[:user].database.delete_all_for(facebook_user_id)
 
     likes = 10.times.collect { rand(1..100).to_s }
     likes.each do |like_id|

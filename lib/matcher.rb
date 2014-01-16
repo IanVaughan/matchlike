@@ -1,8 +1,5 @@
 class Matcher
 
-  def initialize
-  end
-
   def match(user_a, user_b)
     to_match = user_b.map { |k| k[:like_id] }
     matching = user_a.keep_if {|v| to_match.include? v[:like_id] }

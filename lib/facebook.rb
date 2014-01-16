@@ -13,13 +13,6 @@ class Facebook
     @graph = Koala::Facebook::API.new(oauth_access_token)
   end
 
-  # def user_id
-  #   @me ||= begin
-  #     profile = @graph.get_object("me")
-  #     profile['uid']
-  #   end
-  # end
-
   def likes
     @graph.get_connections('me', 'likes', limit:1000)
   end
