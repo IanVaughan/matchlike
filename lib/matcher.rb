@@ -1,25 +1,31 @@
+require './lib/user'
+
 class Matcher
 
-  def match(user_a, user_b)
-    to_match = user_b.map { |k| k[:like_id] }
-    matching = user_a.keep_if {|v| to_match.include? v[:like_id] }
-    matching.map { |k| k[:like_id] }
+  def initialize(base_user)
+    @base_user = base_user
+  end
+
+  def match(to_this_user)
+    base_user.likes.dup.keep_if { |v| to_this_user.likes.include? v }
   end
 
   def sort(users)
-    users.sort { |user_a, user_b| match(user_a, user_b).count }
-    users.delete_if {|x| x == []}
+    users.keep_if { |u| match(u).any? }
+    users.sort_by! { |u| match(u).count }
     users.reverse
   end
 
   def show(users)
-    result = {}
+    result = Hash.new { |hash, key| hash[key] = [] }
     sort(users).each do |user|
-      result[user.first[:user_id]] ||= []
       user.each do |u|
         result[u[:user_id]] << u[:like_id]
       end
     end
     result
   end
+
+  private
+  attr_reader :base_user
 end

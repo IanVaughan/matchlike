@@ -14,7 +14,9 @@ class Database
   end
 
   def get user_id
-    dataset.filter(user_id: user_id).all
+    dataset.
+      select(:user_id, :like_id, :category, :name).
+      filter(user_id: user_id).all
   end
 
   def get_all_user_ids
@@ -23,7 +25,7 @@ class Database
   end
 
   def get_all_users
-    get_all_user_ids.collect {|u| get u}
+    get_all_user_ids.collect {|u| get u}.flatten
   end
 
   def delete_all_for user_id
