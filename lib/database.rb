@@ -1,6 +1,9 @@
 require 'sequel'
 require 'logger'
 require 'yaml'
+# require 'user'
+class Likes < Sequel::Model
+end
 
 class Database
 
@@ -14,14 +17,22 @@ class Database
   end
 
   def get user_id
-    dataset.
-      select(:user_id, :like_id, :category, :name).
-      filter(user_id: user_id).all
+    # likes = dataset.
+    #   select(:like_id, :category, :name).
+    #   # filter(user_id: user_id).all
+    #   where(user_id: user_id)
+
+    # likes = Likes.where(user_id: user_id).collect do |u|
+    #   {like_id: u.like_id, name: u.name, category: u.category}
+    # end
+    # User.new(user_id, likes)
+    Likes.where(user_id: user_id).all
   end
 
   def get_all_user_ids
-    result = dataset.select_group(:user_id).all
-    result.map { |u| u[:user_id] }
+    # result = dataset.select_group(:user_id).all
+    # result.map { |u| u[:user_id] }
+    Likes.select(:user_id).group_by(:user_id).all
   end
 
   def get_all_users

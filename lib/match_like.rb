@@ -1,6 +1,7 @@
 require './lib/facebook'
 require './lib/database'
 require './lib/matcher'
+require 'pry'
 
 class MatchLike
   attr_accessor :facebook, :database, :matcher
@@ -8,7 +9,6 @@ class MatchLike
   def initialize
     @facebook = Facebook.new
     @database = Database.new
-    @matcher = Matcher.new
   end
 
   def auth_user(user_id, user_name, token)
@@ -19,15 +19,19 @@ class MatchLike
 
   def save_likes
     facebook.likes.each do |like|
-      database.add facebook.user_id, like['id'], like['category'], like['name']
+      database.add(facebook.user_id, like['id'], like['category'], like['name'])
     end
   end
 
   def get_likes
-    database.get(facebook.user_id)
+    # convert into User
+    # database.get(facebook.user_id)
   end
 
   def get_matches
-    matcher.show database.get_all_users
+    # convert into User
+    u = database.get_all_users
+    # @matcher = Matcher.new()
+    # matcher.show
   end
 end

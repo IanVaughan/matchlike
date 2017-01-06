@@ -6,14 +6,14 @@ describe Database do
   before { delete_all_data }
 
   context 'adding and getting records' do
-    before { instance.add('1', '2', '3', '4') }
+    before { instance.add('user_1', 'like_1', 'category_1', 'name_1') }
+    before { instance.add('user_1', 'like_2', 'category_2', 'name_2') }
+    before { instance.add('user_2', 'like_3', 'category_3', 'name_3') }
 
-    let(:user_data) do
-      {:user_id=>"1", :like_id=>"2", :category=>"3", :name=>"4"}
-    end
+    let(:result) { User.new('user_1', ['2', '6']) }
 
     it 'returns user data' do
-      expect(instance.get('1')).to eq [user_data]
+      expect(instance.get('1')).to eq [result]
     end
   end
 
